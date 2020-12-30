@@ -20,7 +20,7 @@ public class VelocityListener {
         String message = plugin.getConfig().getJoinFormat()
             .replace("{player}", event.getPlayer().getUsername());
 
-        plugin.getConfig().getOutChannels(plugin.getDApi()).forEach(chan -> chan.sendMessage(message));
+        plugin.getConfig().getOutAllChannels(plugin.getDApi()).forEach(chan -> chan.sendMessage(message));
     }
 
     @Subscribe
@@ -30,7 +30,7 @@ public class VelocityListener {
         String message = plugin.getConfig().getQuitFormat()
             .replace("{player}", event.getPlayer().getUsername());
 
-        plugin.getConfig().getOutChannels(plugin.getDApi()).forEach(chan -> chan.sendMessage(message));
+        plugin.getConfig().getOutAllChannels(plugin.getDApi()).forEach(chan -> chan.sendMessage(message));
     }
 
 }

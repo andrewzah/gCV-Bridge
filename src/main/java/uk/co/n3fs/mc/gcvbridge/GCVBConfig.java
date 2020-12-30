@@ -17,7 +17,8 @@ public class GCVBConfig {
 
     private final String token;
     private final List<Long> inChannels;
-    private final List<Long> outChannels;
+    private final List<Long> outChatChannels;
+    private final List<Long> outAllChannels;
     private final boolean playerlistEnabled;
     private final String playerlistFormat;
     private final String playerlistSeparator;
@@ -37,7 +38,8 @@ public class GCVBConfig {
 
         token = root.getNode("discord", "token").getString();
         inChannels = root.getNode("discord", "in-channels").getList(TypeToken.of(Long.class));
-        outChannels = root.getNode("discord", "out-channels").getList(TypeToken.of(Long.class));
+        outChatChannels = root.getNode("discord", "out-chat-channels").getList(TypeToken.of(Long.class));
+        outAllChannels = root.getNode("discord", "out-all-channels").getList(TypeToken.of(Long.class));
 
         playerlistEnabled = root.getNode("discord", "playerlist", "enabled").getBoolean(true);
         playerlistFormat = root.getNode("discord", "playerlist", "format").getString("**{count} players online:** ```\n{players}\n```");
@@ -81,8 +83,16 @@ public class GCVBConfig {
             .collect(Collectors.toList());
     }
 
-    public List<TextChannel> getOutChannels(DiscordApi dApi) {
-        return outChannels.stream()
+    public List<TextChannel> getOutChatChannels(DiscordApi dApi) {
+        return outChatChannels.stream()
+                .map(dApi::getTextChannelById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+    }
+
+    public List<TextChannel> getOutAllChannels(DiscordApi dApi) {
+        return outAllChannels.stream()
             .map(dApi::getTextChannelById)
             .filter(Optional::isPresent)
             .map(Optional::get)

@@ -10,7 +10,11 @@ discord:
   in-channels: []
   # The IDs of the channels to send messages to.
   # You can specify multiple channels here by separating the IDs with a comma.
-  out-channels: []
+  # For chat and /alert messages.
+  out-chat-channels: []
+  # For join/quit messages.
+  out-all-channels: []
+
   # Settings for the playerlist command
   playerlist:
     # Whether to enable the playerlist command.

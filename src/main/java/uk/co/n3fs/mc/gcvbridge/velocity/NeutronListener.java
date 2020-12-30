@@ -22,7 +22,7 @@ public class NeutronListener {
                 .replace("{author}", event.getAuthor().map(User::getName).orElse("CONSOLE"));
 
         if (!message.isEmpty()) {
-            plugin.getConfig().getOutChannels(plugin.getDApi())
+            plugin.getConfig().getOutChatChannels(plugin.getDApi())
                     .forEach(channel -> channel.sendMessage(message));
         }
     }
